@@ -1,0 +1,15 @@
+The largest num in: 2.500000
+strypes/day04/ $ ./hw2_3 
+1.1
+1.2
+2.5
+The largest num in: 2.500000
+strypes/day04/ $ gc hw2_3.c 
+strypes/day04/ $ ./hw2_3 
+1.1
+1.2
+2.5
+The largest num in: 2.5000
+strypes/day04/ $ gc hw2_3.c 
+strypes/day04/ $ ./hw2_3 < numbers.txt 
+The largest num in: 2.50
