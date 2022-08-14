@@ -9,7 +9,7 @@ printf("\n***\tCalculator v0.1\t***\n");
 printf("\n=>");
 while(scanf(" %4lf %c %4lf", &num1, &operator, &num2)!=EOF){
     
-    //scanf("%*[^\n]\n");
+    scanf("%*[^\n]\n");
     switch (operator){
         case '+':
             //printf(" %.2lf %c %.2lf = \n", num1,operator,num2);
