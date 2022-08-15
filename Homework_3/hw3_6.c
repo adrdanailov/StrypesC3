@@ -15,26 +15,25 @@ int onesCount_build_in(uint64_t mask)
 	return  __builtin_popcountll(mask);
 }
 
-bool contains(int mask, int el) {
+bool contains(uint64_t mask, int el) {
     return mask & (1 << el);
 }
 
-uint64_t insert(uint64_t mask, int el) {
-    mask |= (1ull << el);
-    return mask;
-}
-/*
-void erase(int &mask, int el) {
-    mask &= ~(1 << el);
+void insert(uint64_t *mask, int el) {
+    *mask |= (1ull << el);
 }
 
-void change(int& mask, int el) {
-    mask ^= (1 << el);
+void erase(uint64_t *mask, int el) {
+    *mask &= ~(1ull << el);
 }
-*/
+
+void change(uint64_t *mask, int el) {
+    *mask ^= (1ull << el);
+}
+
 int main(void)
 {
-    uint64_t attendance = 0;
+    uint64_t attendance = -1;
     unsigned int i, option, student_num, students_sel = 0;
     while (1)
     {
@@ -55,7 +54,7 @@ int main(void)
                 {
                     scanf("%*[^\n]\n");
                     students_sel+=i;
-                    attendance = insert(attendance, student_num);
+                    insert(&attendance, student_num);
                     for(int bit=63; bit;bit--)
                         printf("%d", !!(attendance & (1ull<<bit)));
                     printf("\n");
@@ -63,10 +62,24 @@ int main(void)
                     
                 }
                 printf("\nNumber of set bits = %d", students_sel);
+                students_sel=i=0;
             break;
 
             case 2:
-            // statements
+            printf("Which student to mark absent (0 - 64 || EOF):");
+            while (i = scanf(" %u", &student_num)!=EOF)
+                {
+                    scanf("%*[^\n]\n");
+                    students_sel+=i;
+                    erase(&attendance, student_num);
+                    for(int bit=63; bit;bit--)
+                        printf("%d", !!(attendance & (1ull<<bit)));
+                    printf("\n");
+
+                    
+                }
+                printf("\nNumber of set bits = %d", students_sel);
+                students_sel=i=0;
             break;
 
             case 3: //attendance info - count the 1s in the int (minimum weight)
@@ -74,13 +87,28 @@ int main(void)
                 break;
 
             case 4:
+            printf("Which student to change (0 - 64 || EOF):");
+            while (i = scanf(" %u", &student_num)!=EOF)
+                {
+                    scanf("%*[^\n]\n");
+                    students_sel+=i;
+                    change(&attendance, student_num);
+                    for(int bit=63; bit;bit--)
+                        printf("%d", !!(attendance & (1ull<<bit)));
+                    printf("\n");
+
+                    
+                }
+                printf("\nNumber of set bits = %d", students_sel);
+                students_sel=i=0;
             break;
 
             case 5:
+            return 0;
             break;
 
             default:
-            // default statements
+            printf("\nInput 1 to 5 !\n");
         }
 
 
