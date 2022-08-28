@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdint.h>
+#include <time.h>
 
 #define MAX_INT_X32 2147483647
 
@@ -18,7 +19,8 @@
 
 #define FORIBITS(start, stop) for(int i = (stop); i >= (start); i--)
 
-#define SWAP(a,b) if(CHK_X64(a) | CHK_X64(b)) \
+
+#define SWAP_TOO_COMPLICATED(a,b) if(CHK_X64(a) | CHK_X64(b)) \
                         FORIBITS(0, 63) { ((CHECKBIT((a), i)) ^ (CHECKBIT((b), i))) ? \
                             (INVERSEBIT((a) ,i) && INVERSEBIT((b) ,i)) : 0 ; } \
                   else \
@@ -27,11 +29,15 @@
 
 #define PRINTBITS(a) FORIBITS(0, (CHK_X64(a) ? 63 : 31))printf("%d", CHECKBIT(a, i));
 
+#define SWAP(a,b) (a)^=(b);(b)^=(a);(a)^=(b);
+
 int main(){
 
     uint64_t a, b, c;
-    int ch;
+    int ch,ii=10000001;
     uint64_t AA,BB;
+    clock_t t;
+    double time_taken;
 
     do {
         printf("\n***Choose option***");
@@ -57,6 +63,7 @@ int main(){
             case 2:
                 printf("\nEnter A: ");
                 scanf("%lu", &AA);
+
                 printf("\nEnter B: ");
                 scanf("%lu", &BB);
 
@@ -67,10 +74,20 @@ int main(){
                     putchar('\n');
                     PRINTBITS(BB)
                     putchar('\n');
-
-                SWAP(AA, BB);
+t = clock();AA*=1ull;
+while(ii){
+                SWAP(AA,BB)
+                //SWAP_TOO_COMPLICATED(AA, BB);
+ii--;
+}
+t = clock() - t;
 
                 printf("\nSWAPED[binary]: \n");
+
+time_taken = ((double)t)/CLOCKS_PER_SEC;
+printf("SWAP(a, b) took %.7f seconds to execute \n", time_taken);
+//printf("SWAP_TOO_COMPLICATED(a, b) took %.7f seconds to execute \n", time_taken);
+
                     PRINTBITS(AA)
                     putchar('\n');
                     PRINTBITS(BB)
