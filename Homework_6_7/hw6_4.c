@@ -22,10 +22,10 @@ int main(void)
     printf("Enter num:");
     scanf("%d", &num);
     Conv(num, str);
-    printf("\n%s", str);
+    printf("\n\'%s\'", str);
     return EXIT_SUCCESS;
 }
-
+/*
 void Conv(int sValue, char* pBuffer)
 {
     if(sValue<0)
@@ -34,11 +34,22 @@ void Conv(int sValue, char* pBuffer)
         sValue *= -1;
     }else
         pBuffer[0] = ' ';
-    //converting from int to ascii symbols
     pBuffer[1] = !(sValue/10000) ? (' ') : ((sValue/10000) + '0');
     pBuffer[2] = !(sValue/1000) ? (' ') : ((sValue/1000)%10 +'0');
     pBuffer[3] = !(sValue/100) ? (' ') : ((sValue/100)%10 +'0');
     pBuffer[4] = !(sValue/10) ? (' ') : ((sValue/10)%10 +'0');
     pBuffer[5] = !(sValue) ? ('0') : ((sValue)%10 + '0');
     pBuffer[6] = '\0';
+}
+*/
+
+void Conv(int sValue, char* pBuffer)//sprintf implementation
+{
+    char sign = ' ';
+    if(sValue<0)
+    {
+        sign = '-';
+        sValue *= -1;
+    }
+    sprintf(pBuffer, "%c%5d", sign, sValue);
 }
