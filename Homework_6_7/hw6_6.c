@@ -9,24 +9,24 @@ unsigned int uLen)”, where pArary is a pointer to unsorted array and uLen is i
 #include <stdlib.h>
 #include <stdbool.h>
 
-void arrSwap(int *xVal, int *yVal);
-void bubbleSort(int arr[], size_t size);
-void printArr(int arr[], size_t size);
+void ArrSwap(int *xVal, int *yVal);
+void Bubble(int* pArray, unsigned int uLen);
+void PrintArr(int arr[], unsigned int uLen);
 
 int main(void)
 {
 	int arr[] = {23, 11, 100, 5, 42, 30, 0, -1};
-	size_t size = sizeof(arr)/sizeof(arr[0]);
+	unsigned int uLen = sizeof(arr)/sizeof(arr[0]);
     printf("Unsorted array: \n");
-    printArr(arr, size);
-	bubbleSort(arr, size);
+    PrintArr(arr, uLen);
+	Bubble(arr, uLen);
 	printf("\nSorted array: \n");
-	printArr(arr, size);
+	PrintArr(arr, uLen);
     putchar('\n');
 	return EXIT_SUCCESS;
 }
 
-void arrSwap(int *xVal, int *yVal) //swapping by reference
+void ArrSwap(int *xVal, int *yVal) //swapping by reference
 {
 	int temp = *xVal;
 	*xVal = *yVal;
@@ -34,18 +34,18 @@ void arrSwap(int *xVal, int *yVal) //swapping by reference
 }
 
 /*bubble sort with optimization if NO swaps on the inner FOR sorting is done - the array is sorted*/
-void bubbleSort(int arr[], size_t size)
+void Bubble(int* pArray, unsigned int uLen)
 {
-    int i, j, n = size - 1; 
+    int i, j, n = uLen - 1; 
     bool swapped;
     for (i = 0; i < n; i++)
     {
         swapped = false;
         for (j = 0; j < n-i; j++)
         {
-            if (arr[j] > arr[j+1])
+            if (pArray[j] > pArray[j+1])
             {
-                arrSwap(&arr[j], &arr[j+1]);
+                ArrSwap(&pArray[j], &pArray[j+1]);
                 swapped = true;
             }
         }
@@ -54,9 +54,9 @@ void bubbleSort(int arr[], size_t size)
     }
 }
 
-void printArr(int arr[], size_t size)
+void PrintArr(int arr[], unsigned int uLen)
 {
 	int i;
-	for (i=0; i < size; i++)
+	for (i=0; i < uLen; i++)
 		printf("%d ", arr[i]);
 }
