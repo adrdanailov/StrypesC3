@@ -23,20 +23,23 @@ int main (){
     new_BMI = __BMI_COEF__*(mass/pow(height,2.5));
 
     //optional prints underweight, normalweight, overweight * calculated by new_BMI
-    char index[12]="NORMALWEIGHT"; //max size for index based on words selected
+   char* cur_index;
 
     if (new_BMI < 18.5){
-        char index[] = "UNDERWEIGHT";
+        cur_index =  "UNDERWEIGHT";
     }else if (new_BMI > 35){
-        char index[] = "OVERWEIGHT";
-    }
+        cur_index = "OVERWEIGHT";
+    }else
+        cur_index = "NORMALWEIGHT";
 
     //prints  results
-    printf("\tBMI = %.2f\t%s\n", BMI, index);
-    printf("\tNew BMI = %.2f\t%s\n", new_BMI, index);
+    printf("\tBMI = %.2f\t%s\n", BMI, cur_index);
+    printf("\tNew BMI = %.2f\t%s\n", new_BMI, cur_index);
 
     //BONUS LEVEL if new_BMI above 40 get COWSAY command to say You COW ? :)
-    if (new_BMI > 40) system("cowsay YOU COW ?");
+    if (new_BMI > 40)
+              system(" if [ $( whereis cowsay | grep  '/cowsay' | awk  '{print $2}' ) != NULL ]; then eval \
+                     \"$( whereis cowsay | grep  '/cowsay' | awk  '{print $2}' ) 'YOU COW?'\" ; else echo 'No Cowsay installed !' ; fi ");
 
     return 0;
 }
