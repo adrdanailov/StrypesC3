@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include <stdlib.h>
+
+#define CHECKBIT(mask,bit) !!(mask & (1ull << (bit)))
+#define FORIBITS(start, stop) for(int i = (stop); i >= (start); i--)
+#define PRINTBITS(a) FORIBITS(0, 63)printf("%d|", CHECKBIT((a), i))
 
 int onesCount(uint64_t x)
 {
@@ -33,7 +38,7 @@ void change(uint64_t *mask, int el) {
 
 int main(void)
 {
-    uint64_t attendance = -1;
+    uint64_t attendance = 0;
     unsigned int i, option, student_num, students_sel = 0;
     while (1)
     {
@@ -42,24 +47,20 @@ int main(void)
         printf("2. Clear attendance\n");
         printf("3. Attendance info\n");
         printf("4. Change attendance\n");
-        printf("5. Exit\n");
+        printf("5. Exit\n: ");
         scanf("%d", &option);
         students_sel = 0;
         switch (option)
         {
-
             case 1:
                 printf("Which student is present (0 - 64 || EOF):");
-                while (i = scanf(" %u", &student_num)!=EOF)
+                while ((i = scanf(" %u", &student_num))!=EOF)
                 {
                     scanf("%*[^\n]\n");
                     students_sel+=i;
                     insert(&attendance, student_num);
-                    for(int bit=63; bit;bit--)
-                        printf("%d", !!(attendance & (1ull<<bit)));
+                    PRINTBITS(attendance);
                     printf("\n");
-
-                    
                 }
                 printf("\nNumber of set bits = %d", students_sel);
                 students_sel=i=0;
@@ -72,8 +73,7 @@ int main(void)
                     scanf("%*[^\n]\n");
                     students_sel+=i;
                     erase(&attendance, student_num);
-                    for(int bit=63; bit;bit--)
-                        printf("%d", !!(attendance & (1ull<<bit)));
+                    PRINTBITS(attendance);
                     printf("\n");
 
                     
@@ -104,15 +104,13 @@ int main(void)
             break;
 
             case 5:
-            return 0;
+            return EXIT_SUCCESS;
             break;
 
             default:
             printf("\nInput 1 to 5 !\n");
         }
 
-
-
     }
-    return 0;
+    return EXIT_SUCCESS;
 }
