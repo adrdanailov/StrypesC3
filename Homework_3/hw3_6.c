@@ -10,8 +10,8 @@
 int onesCount(uint64_t x)
 {
     int count;
-    for (count=0; x; count++)
-        x &= x - 1;
+    for (count = 0; x; count++)
+        x &= x - 1ull;
     return count;
 }
 
