@@ -20,6 +20,7 @@ Input = 0x0000, Output = 0x00
 #define _ZERO_BITS_SET_ '0'
 
 unsigned char CheckBit(unsigned int uValue);
+unsigned char CheckBit_built_in(unsigned int uValue);
 
 int main(void)
 {
@@ -28,7 +29,7 @@ int main(void)
     for(int i=0; i < sizeof(num)/sizeof(num[0]); i++) //
     {
         printf("\nInput = 0x%.4x, Output = 0x%.2x", num[i], (CheckBit(num[i]) - '0'));
-        printf("\t%d", __builtin_popcount(num[i]));
+        printf("\t = %d", CheckBit_built_in(num[i]) - '0');
     }
     putchar('\n');
 }
@@ -48,12 +49,11 @@ unsigned char CheckBit(unsigned int uValue) //return '1' for single 1 BIT | '0' 
     return _ONLY_ONE_BIT_SET_;
 }
 
-/* //build in function implementation -> way shorter and wel tested !
-unsigned char CheckBit(unsigned int uValue)
+//build in function implementation -> way shorter and tested !
+unsigned char CheckBit_built_in(unsigned int uValue)
 {
     if (__builtin_popcount(uValue)==1)
         return _ONLY_ONE_BIT_SET_;
     else
         return _MULTIPLE_BITS_SET_;
 }
-*/
