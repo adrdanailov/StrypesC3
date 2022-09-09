@@ -8,10 +8,17 @@ Example: If e.g. “This is a test\0” is passed to the function, the function 
 #include <stdio.h>
 
 void Reverse(char* ptr);
+void Reverse_r(char* ptr);
 
 int main(int argc, char *argv[])
 {
+    if (NULL == argv[1])
+        argv[1] = "This is a test\0";
     putchar('\n');
+    printf("char swap: ");
+    Reverse(argv[1]);
+    putchar('\n');
+    printf("recurtion: ");
     Reverse(argv[1]);
     putchar('\n');
     return 0;
@@ -30,8 +37,7 @@ void Reverse(char* ptr) //swaping chars
     puts(temp);
 }
 
-/*
-void Reverse(char* ptr) //using recursion to reverse the string
+void Reverse_r(char* ptr) //using recursion to reverse the string
 {
     if(*ptr!='\0')
     {
@@ -39,4 +45,3 @@ void Reverse(char* ptr) //using recursion to reverse the string
         printf("%c", *ptr);
     }
 }
-*/
